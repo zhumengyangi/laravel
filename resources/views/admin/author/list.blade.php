@@ -1,10 +1,10 @@
 @extends('common.admin_base')
 
-@section('title','管理后台-分类列表')
+@section('title','管理后台-作者列表')
 
 @section('pageHeader')
     <div class="pageheader">
-        <h2><i class="fa fa-home"></i> 分类列表 <span>Subtitle goes here...</span></h2>
+        <h2><i class="fa fa-home"></i> 作者列表 <span>Subtitle goes here...</span></h2>
         <div class="breadcrumb-wrapper">
         </div>
     </div>
@@ -20,23 +20,25 @@
                     <thead>
                     <tr>
                         <th>ID</th>
-                        <th>小说分类</th>
+                        <th>作者名字</th>
+                        <th>作者描述</th>
                         <th>操作</th>
                     </tr>
                     </thead>
                     <tbody>
-                    @if(!empty($categorys))
-                        @foreach($categorys as $category)
+                    @if(!empty($authors))
+                        @foreach($authors as $author)
                             <tr>
-                                <td>{{$category->id}}</td>
-                                <td>{{$category->c_name}}</td>
-                                <td><a class="btn btn-sm btn-danger" href="{{'/admin/category/del/'.$category->id}}">删除</a></td>
+                                <td>{{$author->id}}</td>
+                                <td>{{$author->author_name}}</td>
+                                <td>{{$author->author_desc}}</td>
+                                <td><a class="btn btn-sm btn-danger" href="{{'/admin/author/del/'.$author->id}}">删除</a></td>
                             </tr>
                         @endforeach
                     @endif
                     </tbody>
                 </table>
-                {{$categorys->links()}}
+                {{$authors->links()}}
             </div><!-- table-responsive -->
         </div>
     </div>

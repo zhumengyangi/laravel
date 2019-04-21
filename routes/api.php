@@ -61,33 +61,3 @@ Route::post('comment/del/{id}','Api\CommentController@del');
 
 /*#############################[首页相关]#############################*/
 
-
-/*#############################[电商类接口]#############################*/
-
-Route::middleware('api_auth')->group(function (){
-
-    //  商品分类接口
-    Route::post('home/category', 'ShopApi\HomeController@category');
-
-    //  首页banner图 广告位的接口
-    Route::post('home/ad', 'ShopApi\HomeController@ad');
-
-    //  商品类型接口
-    Route::post('home/goods', 'ShopApi\HomeController@goodsList');
-
-    //  品牌列表接口
-    Route::post('home/brands', 'ShopApi\HomeController@brand');
-
-    //  最新文章接口
-    Route::post('home/newsArticle', 'ShopApi\HomeController@newsArticle');
-
-    //  发送短信验证码接口
-    Route::post('home/sendSms', 'ShopApi\LoginController@sendSms');
-
-    //  用户注册功能接口
-    Route::post('register', 'ShopApi\LoginController@register');
-
-});
-
-/*#############################[电商类接口]#############################*/
-

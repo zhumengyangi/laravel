@@ -18,7 +18,6 @@ class CreateAdminUsersTable extends Migration
             $table->string('username',50)->default('')->comment('用户名');
             $table->string('password',32)->default('')->comment('密码');
             $table->string('image_url',150)->default('')->comment('用户头像');
-            $table->string('email',150)->default('')->comment('用户邮箱');
             $table->enum('is_super',['1','2'])->default('1')->comment('是否超管 1非超管 2超管');
             $table->enum('status',['1','2'])->default('1')->comment('用户状态1正常 2停用');
             $table->timestamps();

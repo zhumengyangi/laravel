@@ -4,38 +4,39 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Model\Category;
+use App\Model\Author;
 
-class CategoryController extends Controller
+class AuthorController extends Controller
 {
+
     /**
-     * @desc 分类列表
+     * @desc 作者列表
      */
     public function list()
     {
 
-        $category = new Category();
+        $author = new Author();
 
         //  从Model中获取
-        $assign['categorys'] = $category->getLists();
+        $assign['authors'] = $author->getLists();
 
         //  返回给前台数据
-        return view('admin.category.list', $assign);
+        return view('admin.author.list', $assign);
 
     }
 
 
     /**
-     * 分类添加页面
+     * 作者添加页面
      */
     public function create()
     {
-        return view('admin.category.create');
+        return view('admin.author.create');
     }
 
 
     /**
-     * @desc 执行分类添加页面
+     * @desc 执行作者添加页面
      * @param Request $request
      * @return
      */
@@ -46,15 +47,16 @@ class CategoryController extends Controller
         $params = $request->all();
 
         //  实例化Model
-        $category = new Category();
+        $author = new Author();
 
         //  赋值
         $data = [
-            'c_name' => $params['c_name'] ?? ""
+            'author_name' => $params['author_name'] ?? "",
+            'author_desc' => $params['author_desc'] ?? ""
         ];
 
         //  添加
-        $res = $category->addRecord($data);
+        $res = $author->addRecord($data);
 
         //  判断是否添加成功
         if(!$res){//  否，跳回原来的页面
@@ -62,19 +64,22 @@ class CategoryController extends Controller
         }
 
         //  是 调到列表页面
-        return redirect('/admin/category/list');
+        return redirect('/admin/author/list');
 
+        return view('admin.author.create');
     }
 
 
-    //  分类删除操作
+    //  小说删除操作
     public function del($id)
     {
 
-        $category = new Category();
+        $author = new Author();
 
-        $category->delRecord($id);
+        $author->delRecord($id);
 
-        return redirect('/admin/category/list');
+        return redirect('/admin/author/list');
     }
+
+
 }

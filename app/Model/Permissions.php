@@ -9,7 +9,7 @@ use App\Tools\ToolsAdmin;
 class Permissions extends Model
 {
     //指定表名
-    protected $table = "permissions";
+    protected $table = "Permissions";
 
     const
         IS_MENU = 1, //是菜单
@@ -24,23 +24,22 @@ class Permissions extends Model
     public static function getMeuns($user = [])
     {
         $permissions = self::select('id','fid','name','url')
-                           ->where('is_menu',self::IS_MENU)
-                           ->orderBy('id')
-                           ->orderBy('sort')
-                           ->get()
-                           ->toArray();
-
+            ->where('is_menu',self::IS_MENU)
+            ->orderBy('id')
+            ->orderBy('sort')
+            ->get()
+            ->toArray();
 
         //如果不是超管
         if($user['is_super'] !=2){
             $pids = ToolsAdmin::getUserPermissionIds($user['user_id']);//当前登录用户权限节点
 
             $permissions = self::select('id','fid','name','url')
-                               ->whereIn('id',$pids)
-                               ->where('is_menu',self::IS_MENU)
-                               ->orderBy('sort')
-                               ->get()
-                               ->toArray();
+                ->whereIn('id',$pids)
+                ->where('is_menu',self::IS_MENU)
+                ->orderBy('sort')
+                ->get()
+                ->toArray();
         }
 
         $leftMenu = ToolsAdmin::buildTree($permissions);
@@ -53,9 +52,9 @@ class Permissions extends Model
     public static function getAllPermissions()
     {
         $permissions = self::select('id','fid','name','url')
-                           ->orderBy('sort')
-                           ->get()
-                           ->toArray();
+            ->orderBy('sort')
+            ->get()
+            ->toArray();
 
         $permissions = ToolsAdmin::buildTree($permissions);
 
@@ -69,10 +68,10 @@ class Permissions extends Model
     public static function getListByFid($fid=0)
     {
         $list = self::select('id', 'fid','name','url','is_menu','sort')
-                    ->where('fid',$fid)
-                    ->orderBy('sort')
-                    ->get()
-                    ->toArray();
+            ->where('fid',$fid)
+            ->orderBy('sort')
+            ->get()
+            ->toArray();
 
         return $list;
     }
@@ -102,9 +101,9 @@ class Permissions extends Model
     {
 
         $permissions = self::select('url')
-                           ->whereIn('id', $pids)
-                           ->get()
-                           ->toArray();
+            ->whereIn('id', $pids)
+            ->get()
+            ->toArray();
 
 
         $urls = [];

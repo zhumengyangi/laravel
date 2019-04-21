@@ -4,24 +4,26 @@ namespace App\Model;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Category extends Model
+class Author extends Model
 {
-    //  链接表名
-    protected $table = "category";
 
+    //  链接表名
+    protected $table = "author";
+
+    const PAGE_SIZE = 5;
 
 
     /**
-     * @desc 分类列表分页显示
+     * @desc 作者分页显示
      */
     public function getLists()
     {
-        return self::paginate(5);
+        return self::paginate(self::PAGE_SIZE);
     }
 
 
     /**
-     * @desc 执行分类添加
+     * @desc 执行作者添加
      * @param $data
      */
     public function addRecord($data)
@@ -31,7 +33,7 @@ class Category extends Model
 
 
     /**
-     * @desc 分类作者
+     * @desc 删除作者
      * @param $id
      */
     public function delRecord($id)
@@ -41,11 +43,12 @@ class Category extends Model
 
 
     /**
-     * @desc 获取分类
+     * @desc 获取作者列表
      * @return array
      */
-    public function getCategory()
+    public function getAuthor()
     {
         return self::get()->toArray();
     }
+
 }

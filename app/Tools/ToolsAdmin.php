@@ -13,7 +13,7 @@ class ToolsAdmin
      * @param $array $data
      * @param $fid 父类id
      */
-    public static function buildTree($data, $fid=0, $fKey="fid")
+    public static function buildTree($data, $fid=0)
     {
         if(empty($data)){
             return [];
@@ -40,7 +40,7 @@ class ToolsAdmin
                 //删除已经添加过得数据
                 unset($data[$key]);
 
-                self::buildTree($data,$value['id'],$fKey);//执行递归调用
+                self::buildTree($data,$value['id']);//执行递归调用
 
             }
         }
@@ -48,69 +48,16 @@ class ToolsAdmin
         return $menus;
     }
 
-
-    /**
-     * @desc  创建无限极分类树的结构
-     * @param $data
-     * @param int $fid
-     * @param int $level
-     * @param string $fKey
-     */
-    public static function buildTreeString($data,$fid=0,$level=0,$fKey="fid")
-    {
-        //dd($data);
-        //  不能为空
-        if(empty($data)){
-            return [];
-        }
-
-        //  静态属性
-        static $tree = [];
-
-
-        foreach($data as $key => $value){
-
-            //  判断当前的父类id是否递归调用传过来的id
-            if($value[$fKey] == $fid){
-
-                $value['level'] = $level;
-                $tree[] = $value;
-
-                unset($data[$key]);
-
-                self::buildTreeString($data, $value['id'],$level+1, $fKey);
-
-            }
-
-        }
-
-        //  返回
-        return $tree;
-
-    }
-
-
     /**
      * 文件上传函数
      * @param $files $object
      * @return string url
      */
-    public static function uploadFile($files, $isOss = true)
+    public static function uploadFile($files)
     {
         //参数为空
         if(empty($files)){
             return "";
-        }
-
-        if($isOss){
-
-            //  oss文件上传
-            $oss = new ToolsOss();
-
-            $url = $oss->putFile($files);
-
-            return $url;
-
         }
 
         //文件上传的目录
@@ -171,19 +118,6 @@ class ToolsAdmin
 
 
         return $urls;
-    }
-
-
-    /**
-     * @desc  设置默认货号
-     * @param int $string
-     * @return string
-     */
-    public static function buildGoodsSn($string = 16)
-    {
-
-        return "JY".date("YmdH",time()).rand(1,1000);
-
     }
 
 }

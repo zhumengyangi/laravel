@@ -12,7 +12,7 @@
 
 @section('content')
 
-    <div class="alert alert-danger" id="alert-danger">
+    <div class="alert alert-danger">
         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
         <span id="error_msg"></span>
     </div>
@@ -101,7 +101,7 @@
             var ue = UE.getEditor('container');
             var ue1 = UE.getEditor('container1');
 
-            $("#alert-danger").hide();
+            $(".alert-danger").hide();
 
             $("#btn-save").click(function(){
 

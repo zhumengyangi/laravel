@@ -44,7 +44,7 @@
                     {{ csrf_field() }}
                     <input type="text" name="username" class="form-control uname" placeholder="用户名"/>
                     <input type="password" name="password" class="form-control pword" placeholder="密码"/>
-                    <a href="/admin/forget/password"><small>忘记密码?</small></a>
+                    <a href="#"><small>忘记密码?</small></a>
 
                     <div v-if="error_show" style="color:#ff0000">
                         {error_msg}

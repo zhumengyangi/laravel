@@ -184,54 +184,6 @@ class AdminUsersController extends Controller
         }
 
         return redirect("/admin/user/list");
-
-    }
-
-
-    /**
-     * @desc  修改密码的页面
-     */
-    public function password()
-    {
-
-        return view('admin.users.password');
-
-    }
-
-    public function updatePwd(Request $request)
-    {
-
-        //  获取全部参数
-        $params = $request->all();
-
-        //  实例化
-        $adminUsers = new AdminUsers();
-
-        //  检测原密码是否正确
-        $data = $this->getDataInfo($adminUsers, $params['id']);
-        if($data->password != md5($params['old_password'])){
-            return redirect()->back()->with('msg','原密码错误');
-        }
-
-        //  密码赋值
-        $datas = [
-            'password' => md5($params['password'])
-        ];
-
-        //  根据用户id去查
-        $adminUsers1 = AdminUsers::find($params['id']);
-
-        //  添加
-        $res = $this->storeData($adminUsers1, $datas);
-
-        //  是否修改成功
-        if(!$res){
-            return redirect()->back()->with('msg','密码修改失败');
-        }
-
-        //  返回
-        return redirect('/admin/user/list');
-
     }
 
 }
