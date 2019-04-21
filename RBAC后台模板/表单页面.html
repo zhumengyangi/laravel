@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <link rel="shortcut icon" href="images/favicon.png" type="image/png">
+
+  <title>表单页面</title>
+
+  <link href="css/style.default.css" rel="stylesheet">
+
+  <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!--[if lt IE 9]>
+  <script src="js/html5shiv.js"></script>
+  <script src="js/respond.min.js"></script>
+  <![endif]-->
+
+  <!-- js文件 -->
+  <script src="js/jquery-1.11.1.min.js"></script>
+  <script src="js/jquery-migrate-1.2.1.min.js"></script>
+  <script src="js/jquery-ui-1.10.3.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/modernizr.min.js"></script>
+  <script src="js/jquery.sparkline.min.js"></script>
+  <script src="js/toggles.min.js"></script>
+  <script src="js/retina.min.js"></script>
+  <script src="js/jquery.cookies.js"></script>
+
+  <script src="js/flot/jquery.flot.min.js"></script>
+  <script src="js/flot/jquery.flot.resize.min.js"></script>
+  <script src="js/flot/jquery.flot.spline.min.js"></script>
+  <script src="js/morris.min.js"></script>
+  <script src="js/raphael-2.1.0.min.js"></script>
+
+  <script src="js/custom.js"></script>
+  <script src="js/dashboard.js"></script>
+</head>
+
+<body>
+
+<section>
+
+  <div class="leftpanel">
+
+    <div class="logopanel">
+      <h1><span>[</span> 管理后台 <span>]</span></h1>
+    </div><!-- logopanel -->
+
+    <div class="leftpanelinner">
+
+      <!-- This is only visible to small devices -->
+      <div class="visible-xs hidden-sm hidden-md hidden-lg">
+        <div class="media userlogged">
+          <img alt="" src="images/photos/loggeduser.png" class="media-object">
+          <div class="media-body">
+            <h4>John Doe</h4>
+            <span>"Life is so..."</span>
+          </div>
+        </div>
+
+        <h5 class="sidebartitle actitle">Account</h5>
+        <ul class="nav nav-pills nav-stacked nav-bracket mb30">
+          <li><a href="profile.html"><i class="fa fa-user"></i> <span>Profile</span></a></li>
+          <li><a href=""><i class="fa fa-cog"></i> <span>Account Settings</span></a></li>
+          <li><a href=""><i class="fa fa-question-circle"></i> <span>Help</span></a></li>
+          <li><a href="signout.html"><i class="fa fa-sign-out"></i> <span>Sign Out</span></a></li>
+        </ul>
+      </div>
+
+      <h5 class="sidebartitle">Navigation</h5>
+      <ul class="nav nav-pills nav-stacked nav-bracket">
+        <li class="active"><a href="首页.html"><i class="fa fa-home"></i> <span>首页</span></a></li>
+        <li class="nav-parent"><a href=""><i class="fa fa-edit"></i> <span>表单</span></a>
+          <ul class="children">
+            <li><a href="表单页面.html"><i class="fa fa-caret-right"></i> 添加/编辑表单</a></li>
+          </ul>
+        </li>
+        <li class="nav-parent"><a href=""><i class="fa fa-edit"></i> <span>列表</span></a>
+          <ul class="children">
+            <li><a href="列表模板.html"><i class="fa fa-caret-right"></i> 列表页面</a></li>
+          </ul>
+        </li>
+      </ul>
+
+    </div><!-- leftpanelinner -->
+  </div><!-- leftpanel -->
+  
+  <div class="mainpanel">
+
+    <div class="headerbar">
+
+      <a class="menutoggle"><i class="fa fa-bars"></i></a>
+
+      <form class="searchform" action="index.html" method="post">
+        <input type="text" class="form-control" name="keyword" placeholder="Search here..." />
+      </form>
+
+      <div class="header-right">
+        <ul class="headermenu">
+          <li>
+            <div class="btn-group">
+              <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                <img src="images/photos/loggeduser.png" alt="" />
+                John Doe
+                <span class="caret"></span>
+              </button>
+              <ul class="dropdown-menu dropdown-menu-usermenu pull-right">
+                <li><a href="#"><i class="glyphicon glyphicon-cog"></i> 账户设置</a></li>
+                <li><a href="#"><i class="glyphicon glyphicon-question-sign"></i> 修改密码</a></li>
+                <li><a href="#"><i class="glyphicon glyphicon-log-out"></i> 退出登录</a></li>
+              </ul>
+            </div>
+          </li>
+        </ul>
+      </div><!-- header-right -->
+
+    </div><!-- headerbar -->
+    
+    <div class="pageheader">
+      <h2><i class="fa fa-edit"></i> 表单 <span>Subtitle goes here...</span></h2>
+      <div class="breadcrumb-wrapper">
+        <span class="label">You are here:</span>
+        <ol class="breadcrumb">
+          <li><a href="index.html">Bracket</a></li>
+          <li><a href="general-forms.html">Forms</a></li>
+          <li class="active">General Forms</li>
+        </ol>
+      </div>
+    </div>
+    
+    <div class="contentpanel">
+      <div class="alert alert-danger">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+        <strong>Well done!</strong> You successfully read this <a href="" class="alert-link">important alert message</a>.
+      </div>
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <div class="panel-btns">
+            <a href="" class="panel-close">&times;</a>
+            <a href="" class="minimize">&minus;</a>
+          </div>
+
+          <h4 class="panel-title">Input Fields</h4>
+          <p>Individual form controls automatically receive some global styling. All textual elements with <code>.form-control</code> are set to width: 100%; by default. Wrap labels and controls in <code>.form-group</code> for optimum spacing.</p>
+        </div>
+        <div class="panel-body panel-body-nopadding">
+
+          <form class="form-horizontal form-bordered">
+            
+            <div class="form-group">
+              <label class="col-sm-3 control-label">Default Input</label>
+              <div class="col-sm-6">
+                <input type="text" placeholder="Default Input" class="form-control" />
+              </div>
+            </div>
+            
+            <div class="form-group">
+				  <label class="col-sm-3 control-label" for="disabledinput">Disabled Input</label>
+				  <div class="col-sm-6">
+					 <input type="text" placeholder="Disabled Input" id="disabledinput" class="form-control" disabled="" />
+				  </div>
+				</div>
+            
+            <div class="form-group">
+				  <label class="col-sm-3 control-label" for="readonlyinput">Read-Only Input</label>
+				  <div class="col-sm-6">
+					 <input type="text" value="Read Only Input" id="readonlyinput" class="form-control" readonly="readonly" />
+				  </div>
+				</div>
+            
+            <div class="form-group">
+              <label class="col-sm-3 control-label">Help Text</label>
+              <div class="col-sm-6">
+                <input type="text" placeholder="Help Text" class="form-control">
+                <span class="help-block">A block of help text that breaks onto a new line and may extend beyond one line.</span>
+              </div>
+            </div>
+            
+            <div class="form-group">
+              <label class="col-sm-3 control-label">Input w/ Tooltip</label>
+              <div class="col-sm-6">
+                <input type="text" placeholder="Hover me" title="Tooltip goes here" data-toggle="tooltip" data-trigger="hover" class="form-control tooltips" />
+              </div>
+            </div>
+            
+            <div class="form-group">
+              <label class="col-sm-3 control-label">Input w/ Popover</label>
+              <div class="col-sm-6">
+                <input type="text" placeholder="Click Me" class="form-control popovers" data-toggle="popover" data-placement="top" data-original-title="The Title" data-content="Content goes here..." data-trigger="click" />
+              </div>
+            </div>
+            
+            <div class="form-group">
+              <label class="col-sm-3 control-label">Placeholder</label>
+              <div class="col-sm-6">
+                <input type="text" placeholder="This is a placeholder" class="form-control">
+              </div>
+            </div>
+            
+            <div class="form-group has-success">
+              <label class="col-sm-3 control-label">Input with success</label>
+              <div class="col-sm-6">
+                <input type="text" class="form-control">
+              </div>
+            </div>
+            
+            <div class="form-group has-warning">
+              <label class="col-sm-3 control-label">Input with warning</label>
+              <div class="col-sm-6">
+                <input type="text" class="form-control">
+              </div>
+            </div>
+            
+            <div class="form-group has-error">
+              <label class="col-sm-3 control-label">Input with error</label>
+              <div class="col-sm-6">
+                <input type="text" class="form-control">
+              </div>
+            </div>
+            
+            <div class="form-group">
+              <label class="col-sm-3 control-label">Column sizing</label>
+              <div class="col-sm-4">
+                <input type="text" placeholder=".col-sm-4" class="form-control">
+              </div>
+              <div class="col-sm-3">
+                <input type="text" placeholder=".col-sm-3" class="form-control">
+              </div>
+              <div class="col-sm-2">
+                <input type="text" placeholder=".col-sm-2" class="form-control">
+              </div>
+            </div>
+            
+            <div class="form-group">
+              <label class="col-sm-3 control-label">Input Sizing</label>
+              <div class="col-sm-5">
+                <input type="text" placeholder=".input-sm" class="form-control input-sm mb15">
+                <input type="text" placeholder="default" class="form-control mb15">
+                <input type="text" placeholder=".input-lg" class="form-control input-lg">
+              </div>
+            </div>
+            
+            <div class="form-group">
+              <label class="col-sm-3 control-label">Input Tags</label>
+              <div class="col-sm-7">
+                <input name="tags" id="tags" class="form-control" value="foo,bar,baz" />
+              </div>
+            </div>
+            
+            <div class="form-group">
+              <label class="col-sm-3 control-label">Textarea</label>
+              <div class="col-sm-7">
+                <textarea class="form-control" rows="5"></textarea>
+              </div>
+            </div>
+            
+            <div class="form-group">
+              <label class="col-sm-3 control-label">Autogrow Textarea</label>
+              <div class="col-sm-7">
+                <textarea id="autoResizeTA" class="form-control" rows="5"></textarea>
+              </div>
+            </div>
+            
+            <div class="form-group">
+              <label class="col-sm-3 control-label">Radio</label>
+              <div class="col-sm-6">
+					 <div class="radio"><label><input type="radio"> Unchecked</label></div>
+					 <div class="radio"><label><input type="radio" checked=""> Checked</label></div>
+					 <div class="radio"><label><input type="radio" disabled=""> Disabled Unchecked</label></div>
+					 <div class="radio"><label><input type="radio" checked="" disabled=""> Disabled Checked</label></div>
+				  </div>
+            </div>
+            
+            <div class="form-group">
+				  <label class="col-sm-3 control-label" for="checkbox">Checkbox</label>
+				  <div class="col-sm-6">
+					 <div class="checkbox block"><label><input type="checkbox"> Unchecked</label></div>
+					 <div class="checkbox block"><label><input type="checkbox" checked=""> Checked</label></div>
+					 <div class="checkbox block"><label><input type="checkbox" disabled=""> Disabled Unchecked</label></div>
+					 <div class="checkbox block"><label><input type="checkbox" checked="" disabled=""> Disabled Checked</label></div>
+				  </div>
+				</div>
+            
+            
+            <div class="form-group">
+              <label class="col-sm-3 control-label">Spinner</label>
+              <div class="col-sm-9">
+                <input type="text" id="spinner" />
+                <span class="help-block">Enhance a text input for entering numeric values, with up/down buttons and arrow key handling.</span>
+              </div>
+            </div>
+            
+          </form>
+          
+        </div><!-- panel-body -->
+        
+        <div class="panel-footer">
+			 <div class="row">
+				<div class="col-sm-6 col-sm-offset-3">
+				  <button class="btn btn-primary btn-danger">Submit</button>&nbsp;
+				  <button class="btn btn-default">Cancel</button>
+				</div>
+			 </div>
+		  </div><!-- panel-footer -->
+        
+      </div><!-- panel -->
+      
+
+      
+    </div><!-- contentpanel -->
+  </div><!-- mainpanel -->
+
+  
+</section>
+
+
+<script>
+jQuery(document).ready(function(){
+    
+    "use strict";
+  
+  // Tags Input
+  jQuery('#tags').tagsInput({width:'auto'});
+  
+  // Select2
+  jQuery(".select2").select2({
+    width: '100%'
+  });
+   
+  // Textarea Autogrow
+  jQuery('#autoResizeTA').autogrow();
+  
+  // Color Picker
+  if(jQuery('#colorpicker').length > 0) {
+	 jQuery('#colorSelector').ColorPicker({
+			onShow: function (colpkr) {
+				jQuery(colpkr).fadeIn(500);
+				return false;
+			},
+			onHide: function (colpkr) {
+				jQuery(colpkr).fadeOut(500);
+				return false;
+			},
+			onChange: function (hsb, hex, rgb) {
+				jQuery('#colorSelector span').css('backgroundColor', '#' + hex);
+				jQuery('#colorpicker').val('#'+hex);
+			}
+	 });
+  }
+  
+  // Color Picker Flat Mode
+	jQuery('#colorpickerholder').ColorPicker({
+		flat: true,
+		onChange: function (hsb, hex, rgb) {
+			jQuery('#colorpicker3').val('#'+hex);
+		}
+	});
+   
+  // Date Picker
+  jQuery('#datepicker').datepicker();
+  
+  jQuery('#datepicker-inline').datepicker();
+  
+  jQuery('#datepicker-multiple').datepicker({
+    numberOfMonths: 3,
+    showButtonPanel: true
+  });
+  
+  // Spinner
+  var spinner = jQuery('#spinner').spinner();
+  spinner.spinner('value', 0);
+  
+  // Input Masks
+  jQuery("#date").mask("99/99/9999");
+  jQuery("#phone").mask("(999) 999-9999");
+  jQuery("#ssn").mask("999-99-9999");
+  
+  // Time Picker
+  jQuery('#timepicker').timepicker({defaultTIme: false});
+  jQuery('#timepicker2').timepicker({showMeridian: false});
+  jQuery('#timepicker3').timepicker({minuteStep: 15});
+
+  
+});
+</script>
+
+
+</body>
+</html>

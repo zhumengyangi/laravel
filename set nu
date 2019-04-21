@@ -1,0 +1,24 @@
+[1mdiff --cc app/Model/Permissions.php[m
+[1mindex de33030,2cf6e03..0000000[m
+[1m--- a/app/Model/Permissions.php[m
+[1m+++ b/app/Model/Permissions.php[m
+[36m@@@ -24,11 -24,11 +24,19 @@@[m [mclass Permissions extends Mode[m
+      public static function getMeuns($user = [])[m
+      {[m
+          $permissions = self::select('id','fid','name','url')[m
+[32m++<<<<<<< HEAD[m
+[32m +                           ->where('is_menu',self::IS_MENU)[m
+[32m +                           ->orderBy('id')[m
+[32m +                           ->orderBy('sort')[m
+[32m +                           ->get()[m
+[32m +                           ->toArray();[m
+[32m++=======[m
+[32m+             ->where('is_menu',self::IS_MENU)[m
+[32m+             ->orderBy('id')[m
+[32m+             ->orderBy('sort')[m
+[32m+             ->get()[m
+[32m+             ->toArray();[m
+[32m++>>>>>>> 266155469f5f5f7cdba8cb32b19b8ef0be30bdd5[m
+  [m
+          //如果不是超管[m
+          if($user['is_super'] !=2){[m

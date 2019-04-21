@@ -1,0 +1,9 @@
+INSERT INTO `jy_goods_type` VALUES (1, '书', 1);
+INSERT INTO `jy_goods_type` VALUES (2, '音乐', 1);
+INSERT INTO `jy_goods_type` VALUES (3, '电影', 1);
+INSERT INTO `jy_goods_type` VALUES (4, '手机', 1);
+INSERT INTO `jy_goods_type` VALUES (5, '笔记本电脑', 1);
+INSERT INTO `jy_goods_type` VALUES (6, '数码相机', 1);
+INSERT INTO `jy_goods_type` VALUES (7, '数码摄像机', 1);
+INSERT INTO `jy_goods_type` VALUES (8, '化妆品', 1);
+INSERT INTO `jy_goods_type` VALUES (9, '精品手机', 1);
