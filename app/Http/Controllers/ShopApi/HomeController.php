@@ -59,7 +59,7 @@ class HomeController extends Controller
         $currentTime = date("Y-m-d H:i:s");
 
         //  查询想要的数据
-        $ad = \DBtable('jy_ad')->select('id','ad_name','image_url','ad_link')
+        $ad = \DB::table('jy_ad')->select('id','ad_name','image_url','ad_link')
                               ->where('position_id',$position)
                               ->where('start_time','<',$currentTime)
                               ->where('end_time','>',$currentTime)

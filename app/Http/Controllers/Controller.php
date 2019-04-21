@@ -195,7 +195,7 @@ class Controller extends BaseController
     public function returnJson($data = [])
     {
 
-        if(!headers_send()){
+        if(!headers_sent()){
             header(sprintf('%s:%s','Content-Type','application/json'));
         }
         exit(json_encode($data));
