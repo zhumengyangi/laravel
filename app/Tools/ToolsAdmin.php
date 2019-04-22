@@ -27,7 +27,7 @@ class ToolsAdmin
 
             //dd($value);
 
-            if($value['fid'] == $fid){//当前循环的内容中fid是否等于函数fid参数
+            if($value[$fKey] == $fid){//当前循环的内容中fid是否等于函数fid参数
 
                 if(!isset($menus[$fid])){//如果数据没有fid的key
 
@@ -102,6 +102,7 @@ class ToolsAdmin
             return "";
         }
 
+        //  oss上传
         if($isOss){
 
             //  oss文件上传

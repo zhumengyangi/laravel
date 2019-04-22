@@ -88,6 +88,7 @@ class AdController extends Controller
             return redirect()->back()->with('msg','请先上传图片');
         }
 
+
         //  执行添加图片
         $params['image_url'] = ToolsAdmin::uploadFile($params['image_url']);
 

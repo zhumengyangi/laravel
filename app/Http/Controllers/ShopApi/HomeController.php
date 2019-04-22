@@ -139,7 +139,7 @@ class HomeController extends Controller
         //  组装数据 oss图片
         $toolsOss = new ToolsOss();
         foreach($goods as $key => $value){
-            $gallery = \DB::table('jy_goods_gallery')->where('goosd_id',$value->id)->first();
+            $gallery = \DB::table('jy_goods_gallery')->where('goods_id',$value->id)->first();
             $goodsList[$key] = [
                 'id' => $value->id,
                 'goods_name' => $value->goods_name,
