@@ -69,7 +69,7 @@ class LoginController extends Controller
 
             $return = [
                 'code' => 4003,
-                'msg'  => '今天敦信发送次数已达上限，请二十四小时后再来',
+                'msg'  => '今天短信发送次数已达上限，请二十四小时后再来',
             ];
 
             $this->returnJson($return);
@@ -138,7 +138,7 @@ class LoginController extends Controller
         $redis->connect(env("REDIS_HOST"), env("REDIS_PORT"));
 
         //  获取缓存存储的短信验证吗的值
-        $code = $redis->get("REDISTER_".$params['phone']."_CODE");
+        $code = $redis->get("REGISTER_".$params['phone']."_CODE");
 
         //  校验前台传来的和缓存中是否一致
         if($code != $params['code']){
@@ -170,7 +170,7 @@ class LoginController extends Controller
                 'password' => md5($params['password'])
             ];
 
-            //  根据userid添加
+            //  根据user_id添加
             $userId = $this->storeDataGetId($member, $data);
 
             //  实例化会员详情
@@ -208,6 +208,9 @@ class LoginController extends Controller
         $this->returnJson($return);
 
     }
+
+
+
 
 
 }

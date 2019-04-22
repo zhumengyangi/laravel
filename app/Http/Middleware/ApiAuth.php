@@ -20,5 +20,6 @@ class ApiAuth
         header("Access-Control-Allow-Origin:*");
 
         return $next($request);
+
     }
 }
