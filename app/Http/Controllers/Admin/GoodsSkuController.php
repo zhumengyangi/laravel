@@ -79,6 +79,8 @@ class GoodsSkuController extends Controller
                 $sku1_arr[$k] = $v;
             }
 
+            $goodsSku1 = new GoodsSku();
+
             $this->storeDataMany($goodsSku, $sku1_arr);
 
             DB::commit();

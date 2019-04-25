@@ -14,7 +14,7 @@ class Controller extends BaseController
 
     //  定义常量分页数
     const
-        PAGE_SIZE = 5,
+        PAGE_SIZE = 10,
         END       = true;
 
 
@@ -96,7 +96,7 @@ class Controller extends BaseController
      * @param $id
      * @param string $key
      */
-    public function getDataInfo($object, $id, $key="id",$fields="*")
+    public function getDataInfo($object, $id, $key="id",$fields= "*")
     {
 
         //  没有id返回false
@@ -169,7 +169,7 @@ class Controller extends BaseController
     public function getPageList($object, $where = [])
     {
 
-        return  $object->where($where)->paginate(self::PAGE_SIZE);
+        return  $object->where($where)->orderBy('id','desc')->paginate(self::PAGE_SIZE);
 
     }
 
@@ -200,6 +200,44 @@ class Controller extends BaseController
         }
         exit(json_encode($data));
 
+    }
+
+
+    /**
+     * @desc  校验token是否过期的方式
+     * @param $token
+     * @return array
+     */
+    public function checkToken($token)
+    {
+
+        //  实例化redis
+        $redis = new \Redis();
+
+        //  链接redis
+        $redis->connect(env("REDIS_HOST"), env("REDIS_PORT"));
+
+        $data = $redis->get($token);
+
+        if(!empty($data)){
+            //  查询出用户的信息
+            $user = \DB::table('jy_user')->where(['phone'=>$data])->first();
+
+            $return = [
+                'status' => true,
+                'data'   => [
+                    'id' => $user->id,
+                    'phone' => $user->phone,
+                    'username' => $user->username
+                ],
+            ];
+        }else{
+            $return = [
+                'status' => false
+            ];
+        }
+
+        return $return;
     }
 
 }

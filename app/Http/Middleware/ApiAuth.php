@@ -17,7 +17,7 @@ class ApiAuth
     {
 
         //  解决ajax跨域问题 header头
-        header("Access-Control-Allow-Origin:*");
+        header("Access-Control-Allow-Origin:http://www.360buy.com");
 
         return $next($request);
 
