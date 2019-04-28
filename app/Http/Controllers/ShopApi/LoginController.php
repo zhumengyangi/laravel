@@ -297,6 +297,7 @@ class LoginController extends Controller
             //  把token值返回给用户
             $return['data'] = $token;
 
+            //  返回
             $this->returnJson($return);
 
         }
@@ -352,13 +353,16 @@ class LoginController extends Controller
     public function token(Request $request)
     {
 
+        //  获取全部数据
         $params = $request->all();
 
+        //  成功接口返回20000
         $return = [
             'code' => 2000,
             'msg'  => '登录成功'
         ];
 
+        //  判断token 是否为空
         if(!isset($params['token']) || empty($params['token'])){
 
             $return = [
@@ -370,6 +374,7 @@ class LoginController extends Controller
 
         }
 
+        //  校验token是否过期
         $res = $this->checkToken($params['token']);
 
         if($res['status'] == false){
@@ -382,8 +387,10 @@ class LoginController extends Controller
 
         }
 
+        //  返回数据
         $return['data'] = $res['data'];
 
+        //  返回
         $this->returnJson($return);
 
     }

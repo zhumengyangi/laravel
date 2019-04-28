@@ -257,4 +257,42 @@ class UserController extends Controller
 
     }
 
+
+    /**
+     * @desc  设置默认地址
+     * @param Request $request
+     */
+    public function setDefaultAddress(Request $request)
+    {
+
+        //  成功调用返回2000
+        $return = [
+            'code' => 2000,
+            'msg'  => '设置默认地址成功'
+        ];
+
+        //  获取全部参数
+        $params = $request->all();
+
+        //  查到该条数据
+        $member = Member::find($params['user_id']);
+
+        //  设置为默认  （保存）
+        $res = $this->storeData($member, ['address_id' => $params['id']]);
+
+        //  判断修改成功或失败
+        if (!$res) {
+
+            $return = [
+                'code' => 4001,
+                'msg'  => '设置默认地址失败'
+            ];
+
+        }
+
+        //  返回
+        $this->returnJson($return);
+
+    }
+
 }

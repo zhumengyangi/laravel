@@ -20,6 +20,7 @@ class GoodsController extends Controller
     public function detail($goodsId)
     {
 
+        //  成功2000
         $return = [
             'code' => 2000,
             'msg'  => '商品详情接口'
@@ -45,11 +46,13 @@ class GoodsController extends Controller
 
         //  商品的spu的信息
         $spu = $goodsSku->getSpuHandle($goodsId);
-
         //  商品sku的属性值
         $sku = $goodsSku->getSkuList($goodsId);
 
+
+        //  用于存放sku的数据
         $sku_data = [];
+
         //  组装前台sku的数据
         foreach($sku as $key => $value){
             if(!isset($sku_data[$value['attr_id']])){// 如果不存在
@@ -80,6 +83,38 @@ class GoodsController extends Controller
         ];
 
         $this->returnJson($return);
+
+    }
+
+
+    /**
+     * @desc  获取商品sku属性的列表信息
+     * @param Request $request
+     */
+    public function getGoodsAttr(Request $request)
+    {
+
+        //  传过来 sku的ids
+        $sku_ids = $request->input('sku_ids');
+
+        //  字符串分割为数组
+        $sku_ids = explode(',',$sku_ids);
+
+        //  查找数据
+        $sku = \DB::table('jy_goods_sku')->select('attr_id','sku_value')->whereIn('id',$sku_ids)->get();
+
+        //  用于填装sku数据
+        $skuData = [];
+
+        foreach($sku as $key => $value){
+            //  获取属性名
+            $attr = \DB::table('jy_goods_attr')->select('attr_name')->where('id',$value->attr_id)->first();
+            $skuData[$key]['sku_value'] = $value->sku_value;
+            $skuData[$key]['attr_name'] = $attr->attr_name;
+
+        }
+
+        $this->returnJson($skuData);
 
     }
 

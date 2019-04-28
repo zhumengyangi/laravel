@@ -110,9 +110,27 @@ Route::middleware('api_auth')->group(function (){
 
     //  获取接口列表数据
     Route::post('user/address/list/{user_id}','ShopApi\UserController@getUserAddress');
+    Route::post('user/default/address','ShopApi\UserController@setDefaultAddress');
+
+    //  订单相关
+    Route::post('user/order/{user_id}','ShopApi\OrderController@userOrder');
+
+    //  下订单接口
+    Route::post('user/order','ShopApi\OrderController@createOrder');
+
+    //  订单信息
+    Route::any('shipping','ShopApi\OrderController@shipping');
+    Route::post('payment','ShopApi\OrderController@payment');
 
     //  用户中心红包记录
     Route::post('user/bonus/{user_id}','ShopApi\BonusController@userBonusList');
+
+    //  支付相关的
+    Route::any('alipay','ShopApi\AlipayController@alipay');
+    //  同步回调地址
+    Route::any('return/url','ShopApi\AlipayController@returnUrl');
+    //  异步回调地址
+    Route::any('notify/url}','ShopApi\AlipayController@notifyUrl');
 
 });
 

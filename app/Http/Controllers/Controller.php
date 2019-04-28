@@ -228,7 +228,8 @@ class Controller extends BaseController
                 'data'   => [
                     'id' => $user->id,
                     'phone' => $user->phone,
-                    'username' => $user->username
+                    'username' => $user->username,
+                    'address_id' => $user->address_id
                 ],
             ];
         }else{
