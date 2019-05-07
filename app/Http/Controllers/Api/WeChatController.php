@@ -131,22 +131,24 @@ class WeChatController extends Controller
 
         if(!empty($postStr)) {
 
-
+            //  解析xm的内容，微信服务器发过来的内容
             libxml_disable_entity_loader(true);
             $postObj = simplexml_load_string($postStr, 'SimpleXMLElement', LIBXML_NOCDATA);
 
+            //  发送过来的消息类型
             $msgType = $postObj->MsgType;
 
+            //  按照消息类型分发消息
             switch ($msgType) {
-                case 'text':
+                case 'text'://  文本形式
                     $this->responseNews($postObj);
                     brank;
 
-                case 'image':
+                case 'image'://  图片形式
                     $this->responseImage($postObj);
                     brank;
 
-                case 'voice':
+                case 'voice'://  语音形式
                     $this->responseVoice($postObj);
                     brank;
 
@@ -165,6 +167,14 @@ class WeChatController extends Controller
     }
 
 
+    public function responseText($postObj)
+    {
+
+        $fromUserName = $postObj->FromUserName;
+        $toUserName = $postObj->ToUserName;
+        $keywords = trim($postObj->Content);
+        
+    }
 
 
     /**
