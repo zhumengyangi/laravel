@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Model\Goods;
 use App\Tools\ToolsCurl;
+use App\Tools\ToolsOss;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -167,15 +168,217 @@ class WeChatController extends Controller
     }
 
 
+    /**
+     * @desc  回复文本消息
+     *
+     * @param $postObj
+     */
     public function responseText($postObj)
     {
 
+        //  发送者
         $fromUserName = $postObj->FromUserName;
+        //  接收者
         $toUserName = $postObj->ToUserName;
+        //  用户输入内容
         $keywords = trim($postObj->Content);
+
+        if(empty($keywords)) {
+            $content = "您没有输入内容";
+        } else {
+
+            //  获取商品表的方法进行查询
+            $goodsInfo = $this->goods->getGoodsByKeywords($keywords);
+
+            if(empty($goodsInfo)) {
+                $content = "没有与查询到内容";
+            } else {
+                $content = "商品名称".$goodsInfo->goods_name."\n 商品货号:".$goodsInfo->goods_sn."\n 商品价格：".$goodsInfo->market_price."\n 商品库存：".$goodsInfo->goods_num;
+
+            }
+
+        }
+
+        \Log::info('记录用户发送文本消息',[$fromUserName, $toUserName, $keywords]);
+
+        //  回复文本消息的模板
+        $textTpl = "<xml>
+                        <ToUserName><![CDATA[%s]]></ToUserName>
+                        <FromUserName><![CDATA[%s]]></FromUserName>
+                        <CreateTime>%s</CreateTime>
+                        <MsgType><![CDATA[%s]]></MsgType>
+                        <Content><![CDATA[%s]]></Content>
+                    </xml>";
+
+        //  回复消息的内容
+        $responseMsg = sprintf($textTpl, $fromUserName, $toUserName, time(), 'text', $content);
+
+        \Log::info('自动回复消息:',[$responseMsg]);
+
+        echo $responseMsg;
 
     }
 
+
+    /**
+     * 自动回复图文信息
+     *
+     * @param $postObj
+     */
+    public function responseNews($postObj)
+    {
+
+        //  发送者
+        $fromUserName = $postObj->FromUserName;
+        //  接收者
+        $toUserName = $postObj->ToUserName;
+        //  用户输入内容
+        $keywords = trim($postObj->Content);
+
+        if(empty($keywords)) {
+            $content = "您没有输入内容";
+        } else {
+
+            //  获取商品表的方法进行查询
+            $goodsInfo = $this->goods->getGoodsByKeywords($keywords);
+
+            if(empty($goodsInfo)) {
+
+                $textTpl = "<xml>
+                                <ToUserName><![CDATA[%s]]></ToUserName>
+                                <FromUserName><![CDATA[%s]]></FromUserName>
+                                <CreateTime>%s</CreateTime>
+                                <MsgType><![CDATA[%s]]></MsgType>
+                                <Content><![CDATA[%s]]></Content>
+                            </xml>";
+
+                //  回复消息的内容
+                $responseMsg = sprintf($textTpl, $fromUserName, $toUserName, time(), 'text', '没有查询到内容');
+
+                \Log::info('自动回复消息:',[$responseMsg]);
+
+                echo $responseMsg;
+
+            } else {
+
+                //  获取商品图片地址
+                $gallery = \DB::table('jy_goods_gallery')->select('image_url')->where('goods_id',$goodsInfo->id)->first();
+
+                if(!empty($gallery)) {
+                    $oss = new ToolsOss();
+
+                    $imageUrl = $oss->getUrl($gallery->image_url, true);
+                } else {
+                    $imageUrl = "https://www.zhumengyang.com/images/photos/blog4.jpg";
+                }
+
+
+                //  图文消息的模板
+                $newsTpl = "<xml>
+                              <ToUserName><![CDATA[%s]]></ToUserName>
+                              <FromUserName><![CDATA[%s]]></FromUserName>
+                              <CreateTime>%s</CreateTime>
+                              <MsgType><![CDATA[news]]></MsgType>
+                              <ArticleCount>2</ArticleCount>
+                              <Articles>
+                                <item>
+                                  <Title><![CDATA[%s]]></Title>
+                                  <Description><![CDATA[%s]]></Description>
+                                  <PicUrl><![CDATA[%s]]></PicUrl>
+                                  <Url><![CDATA[%s]]></Url>
+                                </item>
+                                <item>
+                                  <Title><![CDATA[%s]]></Title>
+                                  <Description><![CDATA[%s]]></Description>
+                                  <PicUrl><![CDATA[%s]]></PicUrl>
+                                  <Url><![CDATA[%s]]></Url>
+                                </item>
+                              </Articles>
+                            </xml>";
+
+                $responseMsg = sprintf($newsTpl, $fromUserName, $toUserName, time(), $goodsInfo->goods_name, $goodsInfo->goods_desc, $imageUrl, 'http://www.baidu.com', $goodsInfo->goods_name, $goodsInfo->goods_desc, $imageUrl, 'http://www.baidu.com');
+
+                echo $responseMsg;
+
+            }
+
+        }
+
+    }
+
+
+    /**
+     * 自动回复图片信息
+     *
+     * @param $postObj
+     */
+    public function responseImage($postObj)
+    {
+
+        //  发送者
+        $fromUserName = $postObj->FromUserName;
+        //  接收者
+        $toUserName = $postObj->ToUserName;
+        $picUrl = $postObj->picUrl;
+        $mediaId = $postObj->MediaId;
+
+        \Log::info('记录用户发送图片消息:',[$fromUserName, $toUserName, $picUrl, $mediaId]);
+
+        $imageTpl = "<xml>
+                         <ToUserName><![CDATA[%s]]></ToUserName>
+                         <FromUserName><![CDATA[%s]]></FromUserName>
+                         <CreateTime>%s</CreateTime>
+                         <MsgType><![CDATA[image]]></MsgType>
+                         <Image>
+                            <MediaId><![CDATA[%s]]></MediaId>
+                         </Image>
+                     </xml>";
+
+        //  回复消息的内容
+        $responseMsg = sprintf($imageTpl, $fromUserName, $toUserName, time(), $mediaId);
+
+        \Log::info('被动回复图片消息:',[$responseMsg]);
+
+        echo $responseMsg;
+
+    }
+
+
+    /**
+     * 自动回复语音的消息
+     *
+     * @param $postObj
+     */
+    public function responseVoice($postObj)
+    {
+
+        //  发送者
+        $fromUserName = $postObj->FromUserName;
+        //  接收者
+        $toUserName = $postObj->ToUserName;
+        $picUrl = $postObj->picUrl;
+        $mediaId = $postObj->MediaId;
+
+        \Log::info('记录用户发送语音消息:',[$fromUserName, $toUserName, $mediaId]);
+
+        $voiceTpl = "<xml>
+                         <ToUserName><![CDATA[%s]]></ToUserName>
+                         <FromUserName><![CDATA[%s]]></FromUserName>
+                         <CreateTime>%s</CreateTime>
+                         <MsgType><![CDATA[voice]]></MsgType>
+                         <Voice>
+                            <MediaId><![CDATA[%s]]></MediaId>
+                         </Voice>
+                     </xml>";
+
+        //  回复消息的内容
+        $responseMsg = sprintf($voiceTpl, $fromUserName, $toUserName, time(), $mediaId);
+
+        \Log::info('被动回复语音消息:',[$responseMsg]);
+
+        echo $responseMsg;
+
+    }
 
     /**
      * 获取access_token的值
