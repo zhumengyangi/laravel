@@ -173,7 +173,7 @@ class WeChatController extends Controller
         $fromUserName = $postObj->FromUserName;
         $toUserName = $postObj->ToUserName;
         $keywords = trim($postObj->Content);
-        
+
     }
 
 
