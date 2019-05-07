@@ -39,14 +39,14 @@ class WeChatController extends Controller
         \Log::info('微信公众平台请求数据：',[$params]);
 
         //  验证微信服务器请求签名的有效性
-        /*$res = $this->checkSignature($params);
+        $res = $this->checkSignature($params);
 
         if($res) {
             echo $params['echostr'];
         } else {
             echo "校验失败";
         }
-        exit;*/
+        exit;
 
         //  获取微信公众号的自定义菜单栏
         $this->getSelfMenu();
@@ -121,19 +121,51 @@ class WeChatController extends Controller
     }
 
 
-
+    /**
+     * 自定义消息分发回复
+     *
+     * @param $postStr
+     */
     public function responseMsg($postStr)
     {
 
         if(!empty($postStr)) {
 
+
             libxml_disable_entity_loader(true);
             $postObj = simplexml_load_string($postStr, 'SimpleXMLElement', LIBXML_NOCDATA);
 
-            
+            $msgType = $postObj->MsgType;
+
+            switch ($msgType) {
+                case 'text':
+                    $this->responseNews($postObj);
+                    brank;
+
+                case 'image':
+                    $this->responseImage($postObj);
+                    brank;
+
+                case 'voice':
+                    $this->responseVoice($postObj);
+                    brank;
+
+                default:
+                    break;
+
+            }
+
+        } else {
+
+            echo "please input something";
+            exit;
+
         }
 
     }
+
+
+
 
     /**
      * 获取access_token的值
