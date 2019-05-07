@@ -38,15 +38,15 @@ class WeChatController extends Controller
 
         \Log::info('微信公众平台请求数据：',[$params]);
 
-        //  验证微信服务器请求签名的有效性
-        $res = $this->checkSignature($params);
-
-        if($res) {
-            echo $params['echostr'];
-        } else {
-            echo "校验失败";
-        }
-        exit;
+//        //  验证微信服务器请求签名的有效性
+//        $res = $this->checkSignature($params);
+//
+//        if($res) {
+//            echo $params['echostr'];
+//        } else {
+//            echo "校验失败";
+//        }
+//        exit;
 
         //  获取微信公众号的自定义菜单栏
         $this->getSelfMenu();
