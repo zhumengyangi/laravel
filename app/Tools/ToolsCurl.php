@@ -1,4 +1,4 @@
-<?php
+?php
 
 namespace App\Tools;
 
@@ -20,7 +20,7 @@ class ToolsCurl
         $curl = curl_init();
 
         //  设置抓取数据的地址
-        curl_setopt($curl, CURLOPT_URl, $url);
+        curl_setopt($curl, CURLOPT_URL, $url);
 
         //  设置文件流形式返回抓取的数据
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
