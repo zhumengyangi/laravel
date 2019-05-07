@@ -221,7 +221,7 @@ class WeChatController extends Controller
         sort($tmpArr, SORT_STRING);
 
         $tmpStr = implode($tmpArr);
-        $tmpStr = shal($tmpStr);
+        $tmpStr = sha1($tmpStr);
 
         if($tmpStr != $signature) {
             return false;
