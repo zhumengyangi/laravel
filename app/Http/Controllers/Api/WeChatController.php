@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Model\Goods;
 use App\Tools\ToolsCurl;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -13,6 +14,8 @@ class WeChatController extends Controller
 
     protected $redis = null;
 
+    protected $goods = null;
+
     protected $accessTokenKey = "access_token_cache";
 
     public function __construct()
@@ -21,6 +24,8 @@ class WeChatController extends Controller
         $this->wechat = \Config::get('wechat');
 
         $this->redis = new \Redis();
+
+        $this->goods = new Goods();
 
         $this->redis->connect(env('REDIS_HOST'), env('REDIS_PORT'));
 
@@ -45,6 +50,14 @@ class WeChatController extends Controller
 
         //  获取微信公众号的自定义菜单栏
         $this->getSelfMenu();
+
+        //  接收微信服务器发送过来的xml数据
+        $postStr = isset($GLOBALS["HTTP_RAW_POST_DATA"]) ? $GLOBALS["HTTP_RAW_POST_DATA"] : file_get_contents("php://input");
+
+        \Log::info('用户发送的信息内容',[$postStr]);
+
+        //  自定义消息分发记录
+        $this->responseMsg($postStr);
 
     }
 
@@ -107,6 +120,20 @@ class WeChatController extends Controller
 
     }
 
+
+
+    public function responseMsg($postStr)
+    {
+
+        if(!empty($postStr)) {
+
+            libxml_disable_entity_loader(true);
+            $postObj = simplexml_load_string($postStr, 'SimpleXMLElement', LIBXML_NOCDATA);
+
+            
+        }
+
+    }
 
     /**
      * 获取access_token的值

@@ -136,3 +136,5 @@ Route::middleware('api_auth')->group(function (){
 
 /*#############################[电商类接口]#############################*/
 
+//  微信公众号服务器配置
+Route::any('wechat/index','Api\WeChatController@index');
