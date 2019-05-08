@@ -184,7 +184,11 @@ return array(
     'App\\Tools\\ToolsExcel' => $baseDir . '/app/Tools/ToolsExcel.php',
     'App\\Tools\\ToolsOss' => $baseDir . '/app/Tools/ToolsOss.php',
     'App\\Tools\\ToolsSms' => $baseDir . '/app/Tools/ToolsSms.php',
+<<<<<<< HEAD
     //'App\\Tools\\ToolsCurl' => $baseDir . '/app/Tools/ToolsCurl.php',
+=======
+//    'App\\Tools\\ToolsCurl' => $baseDir . '/app/Tools/ToolsCurl.php',
+>>>>>>> 7a8cbee560d31caa745c04836a9ab666f5b1d071
     'Carbon\\Carbon' => $vendorDir . '/nesbot/carbon/src/Carbon/Carbon.php',
     'Carbon\\CarbonInterval' => $vendorDir . '/nesbot/carbon/src/Carbon/CarbonInterval.php',
     'Carbon\\Exceptions\\InvalidDateException' => $vendorDir . '/nesbot/carbon/src/Carbon/Exceptions/InvalidDateException.php',
