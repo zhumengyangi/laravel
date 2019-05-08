@@ -410,7 +410,7 @@ class WeChatController extends Controller
         //  详细地址
         $label = $postObj->Label;
 
-        $content = "您当前的位置信息：维度是：".$locationX."\n 经度是：".$locationY"\n 地理位置信息是：".$label;
+        $content = "您当前的位置信息：维度是：".$locationX."\n 经度是：".$locationY."\n 地理位置信息是：".$label;
 
         $textTpl = "<xml>
                         <ToUserName><![CDATA[%s]]></ToUserName>
