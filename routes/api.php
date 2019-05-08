@@ -138,3 +138,7 @@ Route::middleware('api_auth')->group(function (){
 
 //  微信公众号服务器配置
 Route::any('wechat/index','Api\WeChatController@index');
+//  获取code的授权码
+Route::any('wap/getCode','Api\WapController@getCode');
+//  网页授权的回调地址
+Route::any('wap/callback','Api\WapController@callback');

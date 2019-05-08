@@ -22,6 +22,7 @@ class WeChatController extends Controller
     public function __construct()
     {
 
+        //  获取微信的配置信息
         $this->wechat = \Config::get('wechat');
 
         $this->redis = new \Redis();
@@ -32,6 +33,12 @@ class WeChatController extends Controller
 
     }
 
+
+    /**
+     * 微信公众号的入口路由
+     *
+     * @param Request $request
+     */
     public function index(Request $request)
     {
 
@@ -89,7 +96,7 @@ class WeChatController extends Controller
             ],
 
             [
-                'name' => "我的菜单",
+                'name' => "其他",
                 'sub_button' => [
 
                     [
@@ -108,6 +115,12 @@ class WeChatController extends Controller
 
                 ]
 
+            ],
+
+            [
+                'name' => '微网站',
+                'type' => 'view',
+                'url'  => 'http://www.zhumengyang.com/api/wap/getCode',
             ]
 
         ];
@@ -134,6 +147,7 @@ class WeChatController extends Controller
 
             //  解析xm的内容，微信服务器发过来的内容
             libxml_disable_entity_loader(true);
+            //  xml转为对象
             $postObj = simplexml_load_string($postStr, 'SimpleXMLElement', LIBXML_NOCDATA);
 
             //  发送过来的消息类型
@@ -143,15 +157,15 @@ class WeChatController extends Controller
             switch ($msgType) {
                 case 'text'://  文本形式
                     $this->responseNews($postObj);
-                    brank;
+                    break;
 
                 case 'image'://  图片形式
                     $this->responseImage($postObj);
-                    brank;
+                    break;
 
                 case 'voice'://  语音形式
                     $this->responseVoice($postObj);
-                    brank;
+                    break;
 
                 default:
                     break;
@@ -236,7 +250,7 @@ class WeChatController extends Controller
         $keywords = trim($postObj->Content);
 
         if(empty($keywords)) {
-            $content = "您没有输入内容";
+            echo "您没有输入内容";
         } else {
 
             //  获取商品表的方法进行查询
@@ -244,6 +258,7 @@ class WeChatController extends Controller
 
             if(empty($goodsInfo)) {
 
+                //  回复文本消息的模板
                 $textTpl = "<xml>
                                 <ToUserName><![CDATA[%s]]></ToUserName>
                                 <FromUserName><![CDATA[%s]]></FromUserName>
@@ -279,24 +294,17 @@ class WeChatController extends Controller
                               <FromUserName><![CDATA[%s]]></FromUserName>
                               <CreateTime>%s</CreateTime>
                               <MsgType><![CDATA[news]]></MsgType>
-                              <ArticleCount>2</ArticleCount>
+                              <ArticleCount>1</ArticleCount>
                               <Articles>
                                 <item>
                                   <Title><![CDATA[%s]]></Title>
-                                  <Description><![CDATA[%s]]></Description>
-                                  <PicUrl><![CDATA[%s]]></PicUrl>
-                                  <Url><![CDATA[%s]]></Url>
-                                </item>
-                                <item>
-                                  <Title><![CDATA[%s]]></Title>
-                                  <Description><![CDATA[%s]]></Description>
                                   <PicUrl><![CDATA[%s]]></PicUrl>
                                   <Url><![CDATA[%s]]></Url>
                                 </item>
                               </Articles>
                             </xml>";
 
-                $responseMsg = sprintf($newsTpl, $fromUserName, $toUserName, time(), $goodsInfo->goods_name, $goodsInfo->goods_desc, $imageUrl, 'http://www.baidu.com', $goodsInfo->goods_name, $goodsInfo->goods_desc, $imageUrl, 'http://www.baidu.com');
+                $responseMsg = sprintf($newsTpl, $fromUserName, $toUserName, time(), $goodsInfo->goods_name, $imageUrl, 'http://www.baidu.com');
 
                 echo $responseMsg;
 
@@ -319,7 +327,9 @@ class WeChatController extends Controller
         $fromUserName = $postObj->FromUserName;
         //  接收者
         $toUserName = $postObj->ToUserName;
+        //  图片地址
         $picUrl = $postObj->picUrl;
+        //  通过素材管理中的接口上传多媒体文件，得到的id
         $mediaId = $postObj->MediaId;
 
         \Log::info('记录用户发送图片消息:',[$fromUserName, $toUserName, $picUrl, $mediaId]);
@@ -356,7 +366,7 @@ class WeChatController extends Controller
         $fromUserName = $postObj->FromUserName;
         //  接收者
         $toUserName = $postObj->ToUserName;
-        $picUrl = $postObj->picUrl;
+        //  通过素材管理中的接口上传多媒体文件，得到的id
         $mediaId = $postObj->MediaId;
 
         \Log::info('记录用户发送语音消息:',[$fromUserName, $toUserName, $mediaId]);
@@ -375,6 +385,45 @@ class WeChatController extends Controller
         $responseMsg = sprintf($voiceTpl, $fromUserName, $toUserName, time(), $mediaId);
 
         \Log::info('被动回复语音消息:',[$responseMsg]);
+
+        echo $responseMsg;
+
+    }
+
+
+    /**
+     * 获取地理位置消息
+     *
+     * @param $postObj
+     */
+    public function responseLocation($postObj)
+    {
+
+        //  发送者
+        $fromUserName = $postObj->FromUserName;
+        //  接收者
+        $toUserName = $postObj->ToUserName;
+        //  经度
+        $locationX = $postObj->location_X;
+        //  维度
+        $locationY = $postObj->location_Y;
+        //  详细地址
+        $label = $postObj->Label;
+
+        $content = "您当前的位置信息：维度是：".$locationX."\n 经度是：".$locationY"\n 地理位置信息是：".$label;
+
+        $textTpl = "<xml>
+                        <ToUserName><![CDATA[%s]]></ToUserName>
+                        <FromUserName><![CDATA[%s]]></FromUserName>
+                        <CreateTime>%s</CreateTime>
+                        <MsgType><![CDATA[%s]]></MsgType>
+                        <Content><![CDATA[%s]]></Content>
+                    </xml>";
+
+        //  回复消息内容
+        $responseMsg = sprintf($textTpl, $fromUserName, $toUserName, time(), 'text', $content);
+
+        \Log::info('自动回复消息',[$responseMsg]);
 
         echo $responseMsg;
 
