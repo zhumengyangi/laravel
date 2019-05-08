@@ -47,8 +47,8 @@ class WeChatController extends Controller
         \Log::info('微信公众平台请求数据：',[$params]);
 
         //  验证微信服务器请求签名的有效性
-        $res = $this->checkSignature($params);
-/*
+        /*$res = $this->checkSignature($params);
+
         if($res) {
             echo $params['echostr'];
         } else {
