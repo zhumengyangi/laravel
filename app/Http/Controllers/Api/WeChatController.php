@@ -36,15 +36,15 @@ class WeChatController extends Controller
 
         \Log::info('微信公众平台请求数据:',[$params]);
 
-        // $res = $this->checkSignature($params);//验证微信服务器请求签名的有效性
+         $res = $this->checkSignature($params);//验证微信服务器请求签名的有效性
 
-        // if($res){
-        // 	echo $params['echostr'];
-        // 	exit;
-        // }else{
-        // 	echo "校验失败";
-        // 	exit;
-        // }
+         if($res){
+         	echo $params['echostr'];
+         	exit;
+         }else{
+         	echo "校验失败";
+         	exit;
+         }
 
         //获取微信公众号的自定义的菜单栏
         $this->getSelfMenu();
@@ -176,7 +176,7 @@ class WeChatController extends Controller
                     $oss = new ToolsOss();
                     $imageUrl = $oss->getUrl($gallery->image_url, true);
                 }else{
-                    $imageUrl = "http://www.shopyjr.com/images/photos/blog4.jpg";
+                    $imageUrl = "http://www.zhumengyang.com/images/photos/blog4.jpg";
                 }
                 //图文消息的模板
                 $newsTpl = "<xml>
@@ -320,7 +320,7 @@ class WeChatController extends Controller
                     [
                         'name' => '网站后台',
                         'type' => 'view',
-                        'url'  => 'http://www.shopyjr.com/admin/login'
+                        'url'  => 'http://www.zhumengyang.com/admin/login'
 
                     ],
                     [
@@ -335,7 +335,7 @@ class WeChatController extends Controller
             [
                 'name' => '微网站',
                 'type' => 'view',
-                'url'  => 'http://www.shopyjr.com/api/wap/getCode',
+                'url'  => 'http://www.zhumengyang.com/api/wap/getCode',
             ]
 
         ];
