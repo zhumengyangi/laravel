@@ -429,35 +429,28 @@ class WeChatController extends Controller
 
     }
 
-    /**
-     * 获取access_token的值
-     *
-     * @return bool|string
-     */
+    //获取access_token的值
     public function getAccessToken()
     {
-
-        //  获取缓存中的token值
+        //获取缓存中的token值
         $accessToken = $this->redis->get($this->accessTokenKey);
 
-        if(empty($accessToken)) {
+        if(empty($accessToken)){
+            //请求获取access_token的接口
+            $accessTokenUrl = sprintf($this->wechat['access_token_url'], $this->wechat['app_id'],$this->wechat['app_secret']);
 
-            //  请求获取access_token的接口
-            $accessTokenUrl = sprintf($this->wechat['access_token_url'], $this->wechat['app_id'], $this->wechat['app_secret']);
+            \Log::info('请求获取access_token的接口url地址',['access_token_url'=>$accessTokenUrl]);
 
-            \Log::info('请求获取access_token的接口url地址', ['access_token_url' => $accessTokenUrl]);
-
-            //  请求access_token
+            //请求access_token;
             $response = ToolsCurl::httpCurl($accessTokenUrl);
 
-            \Log::info('获取到的access_token接口返回的数据：',[$response]);
+            \Log::info('获取到的access_token接口返回的数据:',[$response]);
 
             $accessToken = $response['access_token'];
-
         }
 
-        return $accessToken;
 
+        return $accessToken;
     }
 
 
