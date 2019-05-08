@@ -22,6 +22,10 @@ class WeChatController extends Controller
     public function __construct()
     {
 
+        $data = ToolsCurl::httpCurl('http://www.baidu.com');
+
+        dd($data);
+
         //  获取微信的配置信息
         $this->wechat = \Config::get('wechat');
 
