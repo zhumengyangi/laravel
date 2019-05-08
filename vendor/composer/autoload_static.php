@@ -601,7 +601,7 @@ class ComposerStaticInitf0598cee7183dc8667180346f21027c7
         'App\\Tools\\ToolsExcel' => __DIR__ . '/../..' . '/app/Tools/ToolsExcel.php',
         'App\\Tools\\ToolsOss' => __DIR__ . '/../..' . '/app/Tools/ToolsOss.php',
         'App\\Tools\\ToolsSms' => __DIR__ . '/../..' . '/app/Tools/ToolsSms.php',
-        'App\\Tools\\ToolsCurl' => __DIR__ . '/../..' . '/app/Tools/ToolsCurl.php',
+//        'App\\Tools\\ToolsCurl' => __DIR__ . '/../..' . '/app/Tools/ToolsCurl.php',
         'Carbon\\Carbon' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/Carbon.php',
         'Carbon\\CarbonInterval' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/CarbonInterval.php',
         'Carbon\\Exceptions\\InvalidDateException' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/Exceptions/InvalidDateException.php',
