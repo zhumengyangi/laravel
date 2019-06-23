@@ -58,7 +58,7 @@
 
         <div class="signup-footer">
             <div class="pull-left">
-                &copy; 2019. All Rights Reserved. 1807A
+                &copy; 2017-2019. All Rights Reserved. ZMY
             </div>
         </div>
 
